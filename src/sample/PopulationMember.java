@@ -6,17 +6,26 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 
 public class PopulationMember extends Movable implements Drawable{
-    boolean isDead = false;
-    Dna dna;
-    int height, width;
-    ArrayList<Obstacle> obstacles;
+    private boolean dead = false;
+    private Dna dna;
+    private static int height, width;
+    private static ArrayList<Obstacle> obstacles;
+    private static Vector initialVelocity;
+    private static Vector startCoordinates;
 
-    public PopulationMember(double dnaMutationChance, double dnaFullMutationChance, int dnaLifeLength, Vector initialVelocity, double forceMultiplier, ArrayList<Obstacle> obstacles, int height, int width) {
-        this.obstacles = obstacles;
-        dna = new Dna(dnaLifeLength, dnaMutationChance, dnaFullMutationChance, forceMultiplier);
-        velocity = initialVelocity;
-        this.height = height;
-        this.width = width;
+    static {
+        height = Main.PopulationMemberHeight;
+        width = Main.PopulationMemberWidth;
+        initialVelocity = Main.initialVelocity;
+        obstacles = Main.obstacles;
+        startCoordinates = Main.startCoordinates;
+    }
+
+    public PopulationMember() {
+        posX = startCoordinates.getX();
+        posY = startCoordinates.getY();
+        velocity = new Vector(initialVelocity.getX(), initialVelocity.getY());
+        dna = new Dna();
     }
 
     public Dna getDna() {
@@ -24,23 +33,24 @@ public class PopulationMember extends Movable implements Drawable{
     }
 
     public boolean isDead() {
-        return isDead;
+        return dead;
     }
 
     public void setDead(boolean dead) {
-        isDead = dead;
+        this.dead = dead;
     }
 
 
     @Override
     void move() {
-        super.move();
         double x = dna.readNextDna().getX();
         double y = dna.readNextDna().getY();
         velocity.addVector(new Vector(x, y));
+        super.move();
         for (Obstacle obstacle : obstacles) {
-            if (obstacle.isInObstacle(this.posX, this.posY, width, height)) isDead = true;
+            if (obstacle.isInObstacle(this.posX, this.posY, width, height)) dead = true;
         }
+        if (posX < 0 || posX+width > Main.canvasWidth || posY < 0 || posY+20 > Main.canvasHeight) dead = true;
 
     }
     @Override

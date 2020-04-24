@@ -17,9 +17,7 @@ public class Obstacle implements Drawable{
         int posX = (int) Math.round(x);
         int posY = (int) Math.round(y);
         if (posX+width > xStart && posX < xEnd){
-            if (posY+height > yStart && posY < yEnd){
-                return true;
-            }
+            return posY + height > yStart && posY < yEnd;
         }
         return false;
     }

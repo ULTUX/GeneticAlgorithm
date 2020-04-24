@@ -6,31 +6,39 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 import java.util.Timer;
 
 public class Main extends Application {
+        static int populationSize = 200;
+        static double dnaMutationChance = 0.1;
+        static double dnaFullMutationChance = 0.01;
+        static int dnaLifeLength = 1000;
+        static Vector initialVelocity = new Vector(0, 0);
+        static double forceMultiplier = 0.5;
+        static ArrayList<Obstacle> obstacles = new ArrayList<>();
+        static int PopulationMemberHeight = 20;
+        static int PopulationMemberWidth = 20;
+        static Vector startCoordinates = new Vector(50, 50);
+        static int canvasWidth = 960;
+        static int canvasHeight = 540;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Canvas canvas = new Canvas(960, 540);
-        GraphicsContext gp = canvas.getGraphicsContext2D();
-        draw(gp);
+        Canvas canvas = new Canvas(canvasWidth, canvasHeight);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        draw(gc);
         Pane root = new Pane();
         root.getChildren().add(canvas);
         primaryStage.setTitle("Drawing Test");
         primaryStage.setScene(new Scene(root, 960, 540));
         primaryStage.show();
     }
-    private void draw(GraphicsContext gp){
+    private void draw(GraphicsContext gc){
         Timer timer = new Timer();
-        ArrayList<PopulationMember> populationMembers = new ArrayList<>();
-        ArrayList<Obstacle> obstacles = new ArrayList<>();
         obstacles.add(new Obstacle(200, 250, 660, 270));
-        PopulationMember pm = new PopulationMember(0.1, 0.01, 2000, new Vector(0, 0), 1.2, obstacles, 20, 20);
-        populationMembers.add(pm);
-        timer.schedule(new DrawTask(gp, populationMembers, obstacles), 100, 50);
+        Population population = new Population();
+        timer.schedule(new DrawTask(gc, population, obstacles), 100, 50);
     }
 
     public static void main(String[] args) {

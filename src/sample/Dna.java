@@ -1,12 +1,21 @@
 package sample;
 
+import java.util.Random;
+
 public class Dna {
-    int lifeLength;
+    static int lifeLength;
     private Vector[] acceleration;
     private int pointerPos = 0;
-    private double mutationChance;
-    private double fullMutationChance;
-    private double forceMultiplier;
+    static private double mutationChance;
+    static private double fullMutationChance;
+    static private double forceMultiplier;
+
+    static {
+    lifeLength = Main.dnaLifeLength;
+    mutationChance = Main.dnaMutationChance;
+    fullMutationChance = Main.dnaFullMutationChance;
+    forceMultiplier = Main.forceMultiplier;
+    }
 
     /**
      * Create a new Dna object from crossover of other already existing Dna objects.
@@ -22,22 +31,15 @@ public class Dna {
         }
     }
 
-    /**
-     * Generate completely new Dna object.
-     * @param lifeLength Length of an array containing Dna sequence.
-     */
-    public Dna(int lifeLength, double mutationChance, double fullMutationChance, double forceMultiplier) {
-        this.mutationChance = mutationChance;
-        this.fullMutationChance = fullMutationChance;
+    public Dna() {
         this.acceleration = new Vector[lifeLength];
-        this.lifeLength = lifeLength;
-        this.forceMultiplier = forceMultiplier;
         generateNewDna();
     }
 
     private void generateNewDna(){
+        Random random = new Random();
         for (int i = 0; i < lifeLength; i++){
-            acceleration[i] = new Vector(Math.random()*2-1, Math.random()*2-1);
+            acceleration[i] = new Vector(random.nextDouble()*2-1, random.nextDouble()*2-1);
             acceleration[i].multiply(forceMultiplier);
         }
     }

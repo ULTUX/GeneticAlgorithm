@@ -7,26 +7,22 @@ import java.util.ArrayList;
 import java.util.TimerTask;
 
 public class DrawTask extends TimerTask {
-    private GraphicsContext gp;
-    private ArrayList<PopulationMember> population;
-    private ArrayList<Obstacle> obstacles;
-    public DrawTask(GraphicsContext gp, ArrayList<PopulationMember> pop, ArrayList<Obstacle> obstacles) {
-        population = pop;
-        this.gp = gp;
+    private final GraphicsContext gc;
+    private final Population population;
+    private final ArrayList<Obstacle> obstacles;
+    public DrawTask(GraphicsContext gc, Population population, ArrayList<Obstacle> obstacles) {
+        this.population = population;
+        this.gc = gc;
         this.obstacles = obstacles;
     }
 
     @Override
     public void run() {
-        gp.clearRect(0,0, 1000, 1000);
-        population.forEach((populationMember)->{
-            populationMember.draw(gp);
-            if (!populationMember.isDead()){
-                populationMember.move();
-            }
-        });
+        gc.clearRect(0,0, 1000, 1000);
+        population.drawPopulation(gc);
+        population.movePopulation();
         for (Obstacle obstacle : obstacles) {
-            obstacle.draw(gp);
+            obstacle.draw(gc);
         }
 
     }
