@@ -1,11 +1,11 @@
 package sample;
 
 
-public abstract class Moveable {
-    int posX , posY;
+public abstract class Movable {
+    double posX , posY;
     Vector velocity;
 
-    public int getPosX() {
+    public double getPosX() {
         return posX;
     }
 
@@ -13,7 +13,7 @@ public abstract class Moveable {
         this.posX = posX;
     }
 
-    public int getPosY() {
+    public double getPosY() {
         return posY;
     }
 

@@ -1,9 +1,9 @@
 package sample;
 
 public class Vector {
-    private int x, y;
+    private double x, y;
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
@@ -11,11 +11,11 @@ public class Vector {
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public Vector(int x, int y) {
+    public Vector(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -31,7 +31,7 @@ public class Vector {
         this.x *= vector.x;
         this.y *= vector.y;
     }
-    public void multiply(int num){
+    public void multiply(double num){
         this.x *= num;
         this.y *= num;
     }

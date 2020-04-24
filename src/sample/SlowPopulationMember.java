@@ -1,5 +1,5 @@
 package sample;
 
-public class SlowPopulationMember extends Moveable {
+public class SlowPopulationMember extends Movable {
 
 }
