@@ -10,18 +10,20 @@ import java.util.ArrayList;
 import java.util.Timer;
 
 public class Main extends Application {
-        static int populationSize = 200;
         static double dnaMutationChance = 0.1;
         static double dnaFullMutationChance = 0.01;
-        static int dnaLifeLength = 1000;
+        static int dnaLifeLength = 150;
         static Vector initialVelocity = new Vector(0, 0);
-        static double forceMultiplier = 0.5;
         static ArrayList<Obstacle> obstacles = new ArrayList<>();
-        static int PopulationMemberHeight = 20;
-        static int PopulationMemberWidth = 20;
+        static int slowPopulationMemberHeight = 20;
+        static int slowPopulationMemberWidth = 20;
+        static int fastPopulationMemberHeight = 10;
+        static int fastPopulationMemberWidth = 10;
         static Vector startCoordinates = new Vector(50, 50);
         static int canvasWidth = 960;
         static int canvasHeight = 540;
+        static int slowPopulationSize = 50;
+        static int fastPopulationSize = 50;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -37,7 +39,7 @@ public class Main extends Application {
     private void draw(GraphicsContext gc){
         Timer timer = new Timer();
         obstacles.add(new Obstacle(200, 250, 660, 270));
-        Population population = new Population();
+        Population population = new Population(fastPopulationSize, slowPopulationSize, new Vector(20, 20), new Vector(15, 15));
         timer.schedule(new DrawTask(gc, population, obstacles), 100, 50);
     }
 

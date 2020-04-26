@@ -20,7 +20,9 @@ public class DrawTask extends TimerTask {
     public void run() {
         gc.clearRect(0,0, 1000, 1000);
         population.drawPopulation(gc);
+        gc.fillOval(Main.canvasWidth-50, Main.canvasHeight-50, 50, 50);
         population.movePopulation();
+        population.checkForNewEpoch();
         for (Obstacle obstacle : obstacles) {
             obstacle.draw(gc);
         }

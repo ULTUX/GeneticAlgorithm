@@ -5,32 +5,99 @@ import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
-public class PopulationMember extends Movable implements Drawable{
+public abstract class PopulationMember extends Movable implements Drawable{
     private boolean dead = false;
-    private Dna dna;
-    private static int height, width;
     private static ArrayList<Obstacle> obstacles;
+    private int width, height;
     private static Vector initialVelocity;
     private static Vector startCoordinates;
+    private Dna dna;
+    private double fitness = -1;
 
     static {
-        height = Main.PopulationMemberHeight;
-        width = Main.PopulationMemberWidth;
         initialVelocity = Main.initialVelocity;
         obstacles = Main.obstacles;
         startCoordinates = Main.startCoordinates;
     }
 
     public PopulationMember() {
-        posX = startCoordinates.getX();
-        posY = startCoordinates.getY();
+        position.setVector(startCoordinates);
         velocity = new Vector(initialVelocity.getX(), initialVelocity.getY());
-        dna = new Dna();
+
+    }
+
+    public double calcFitness(){
+        fitness = position.length(new Vector(Main.canvasWidth - 50, Main.canvasHeight - 50));
+        if (position.getX() > Main.canvasWidth + 50 || position.getX() > Main.canvasWidth -50 ||
+            position.getY() > Main.canvasHeight + 50 || position.getY() > Main.canvasHeight - 50) fitness -=40;
+        fitness = 1/ fitness;
+        return fitness;
+    }
+
+    @Override
+    void move() {
+        if (!isDead()){
+            Vector nextDna = dna.readNextDna();
+            if (nextDna != null) {
+                double x = nextDna.getX();
+                double y = nextDna.getY();
+                velocity.addVector(new Vector(x, y));
+                super.move();
+                for (Obstacle obstacle : getObstacles()) {
+                    if (obstacle.isInObstacle(position.getX(), position.getY(), width, height)) setDead(true);
+                }
+                if (position.getX() < 0 || position.getX() + width > Main.canvasWidth || position.getY() < 0 || position.getY() + height > Main.canvasHeight)
+                    setDead(true);
+            }
+            else setDead(true);
+        }
+    }
+
+    public double getFitness() {
+        return fitness;
+    }
+
+    public void setFitness(double fitness) {
+        this.fitness = fitness;
+    }
+
+    public static Vector getInitialVelocity() {
+        return initialVelocity;
+    }
+
+    public static Vector getStartCoordinates() {
+        return startCoordinates;
     }
 
     public Dna getDna() {
         return dna;
     }
+
+
+    public void setDna(Dna dna) {
+        this.dna = dna;
+    }
+
+    public static ArrayList<Obstacle> getObstacles() {
+        return obstacles;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
 
     public boolean isDead() {
         return dead;
@@ -40,22 +107,5 @@ public class PopulationMember extends Movable implements Drawable{
         this.dead = dead;
     }
 
-
-    @Override
-    void move() {
-        double x = dna.readNextDna().getX();
-        double y = dna.readNextDna().getY();
-        velocity.addVector(new Vector(x, y));
-        super.move();
-        for (Obstacle obstacle : obstacles) {
-            if (obstacle.isInObstacle(this.posX, this.posY, width, height)) dead = true;
-        }
-        if (posX < 0 || posX+width > Main.canvasWidth || posY < 0 || posY+20 > Main.canvasHeight) dead = true;
-
-    }
-    @Override
-    public void draw(GraphicsContext gc){
-        gc.fillRect(Math.round(this.posX), Math.round(this.posY), width, height);
-    }
 
 }

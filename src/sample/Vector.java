@@ -7,7 +7,7 @@ public class Vector {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 
@@ -25,8 +25,12 @@ public class Vector {
         this.y = y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
+    }
+    public void setVector(Vector vector){
+        this.x = vector.getX();
+        this.y = vector.getY();
     }
     public void addVector(Vector vector){
         this.x += vector.x;
@@ -39,5 +43,8 @@ public class Vector {
     public void multiply(double num){
         this.x *= num;
         this.y *= num;
+    }
+    public double length(Vector vector){
+        return Math.sqrt(Math.pow(vector.getX(), 2) + Math.pow(vector.getY(), 2));
     }
 }

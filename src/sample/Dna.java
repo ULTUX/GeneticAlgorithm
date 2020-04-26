@@ -8,13 +8,12 @@ public class Dna {
     private int pointerPos = 0;
     static private double mutationChance;
     static private double fullMutationChance;
-    static private double forceMultiplier;
+    private double forceMultiplier;
 
     static {
     lifeLength = Main.dnaLifeLength;
     mutationChance = Main.dnaMutationChance;
     fullMutationChance = Main.dnaFullMutationChance;
-    forceMultiplier = Main.forceMultiplier;
     }
 
     /**
@@ -23,29 +22,44 @@ public class Dna {
      * @param parent2 Second object to generate Dna from
      * @throws Exception An exception is thrown when parents have not equal lifeLength values.
      */
-    public Dna(Vector[] parent1, Vector[] parent2) throws Exception {
-        if (parent1.length == parent2.length){
+    public Dna(Dna parent1, Dna parent2){
+        if (parent1.getAcceleration().length == parent2.getAcceleration().length){
+            int length = parent1.getAcceleration().length;
+            acceleration = new Vector[length];
+            final int split = sample.Random.randBetween(length/4, 3*length/4);
+            for (int i = 0; i < length; i++){
+                if (i < split){
+                    acceleration[i] = parent1.getAcceleration()[i];
+                }
+                else {
+                    acceleration[i] = parent2.getAcceleration()[i];
+                }
+            }
 
-        } else {
-            throw new Exception("Not matching parents dna size.");
         }
     }
 
-    public Dna() {
-        this.acceleration = new Vector[lifeLength];
-        generateNewDna();
+    public Vector[] getAcceleration() {
+        return acceleration;
     }
 
-    private void generateNewDna(){
+    public Dna(double forceMultiplier) {
+        this.acceleration = new Vector[lifeLength];
+        this.forceMultiplier = forceMultiplier;
+        generateNewDna(this.forceMultiplier);
+    }
+
+    private void generateNewDna(double forceMultiplier){
         Random random = new Random();
         for (int i = 0; i < lifeLength; i++){
             acceleration[i] = new Vector(random.nextDouble()*2-1, random.nextDouble()*2-1);
-            acceleration[i].multiply(forceMultiplier);
+            acceleration[i].multiply(this.forceMultiplier);
         }
     }
 
     public Vector readNextDna(){
-        return acceleration[++pointerPos];
+        if (pointerPos+1 < acceleration.length) return acceleration[++pointerPos];
+        else return null;
     }
     public void mutate(){
         for (int i = 0; i < lifeLength; i++){
@@ -54,9 +68,10 @@ public class Dna {
             }
         }
     }
+
     public void fullMutate(){
         if (Math.random() <= fullMutationChance){
-            generateNewDna();
+            generateNewDna(this.forceMultiplier);
         }
     }
 

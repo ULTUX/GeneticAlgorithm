@@ -2,24 +2,8 @@ package sample;
 
 
 public abstract class Movable {
-    double posX , posY;
+    Vector position = new Vector(0, 0 );
     Vector velocity;
-
-    public double getPosX() {
-        return posX;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    public double getPosY() {
-        return posY;
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-    }
 
     public Vector getVelocity() {
         return velocity;
@@ -30,8 +14,7 @@ public abstract class Movable {
     }
 
     void move(){
-        posX += velocity.getX();
-        posY += velocity.getY();
+        position.addVector(velocity);
     }
 
     public void addVelocity(Vector velocity){

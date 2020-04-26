@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
 public class Obstacle implements Drawable{
     int xStart, yStart;
@@ -24,6 +25,7 @@ public class Obstacle implements Drawable{
 
     @Override
     public void draw(GraphicsContext gc) {
+        gc.setFill(Color.BLACK);
         gc.fillRect(xStart, yStart, xEnd-xStart, yEnd-yStart);
     }
 }
