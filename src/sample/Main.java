@@ -15,10 +15,6 @@ public class Main extends Application {
         static int dnaLifeLength = 150;
         static Vector initialVelocity = new Vector(0, 0);
         static ArrayList<Obstacle> obstacles = new ArrayList<>();
-        static int slowPopulationMemberHeight = 20;
-        static int slowPopulationMemberWidth = 20;
-        static int fastPopulationMemberHeight = 10;
-        static int fastPopulationMemberWidth = 10;
         static Vector startCoordinates = new Vector(50, 50);
         static int canvasWidth = 960;
         static int canvasHeight = 540;

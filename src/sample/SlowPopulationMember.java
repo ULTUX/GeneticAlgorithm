@@ -4,7 +4,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class SlowPopulationMember extends PopulationMember {
-    private static int width, height;
 
     public SlowPopulationMember(Vector diameters) {
         super();
