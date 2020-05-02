@@ -2,34 +2,28 @@ package sample;
 
 import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
-import java.util.Formattable;
-import java.util.HashMap;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Population {
-    private ArrayList<PopulationMember> fastPopulationMembers = new ArrayList<>();
-    private ArrayList<PopulationMember> slowPopulationMembers = new ArrayList<>();
+    private ArrayList<PopulationMember> populationMembers = new ArrayList<>();
 
     public Population(int fastPopulationSize, int slowPopulationSize, Vector slowPopulationMemberDiameters, Vector fastPopulationMemberDiameters) {
         for (int i = 0; i < fastPopulationSize; i++){
-            fastPopulationMembers.add(new FastPopulationMember(fastPopulationMemberDiameters));
+            populationMembers.add(new FastPopulationMember(fastPopulationMemberDiameters));
         }
         for (int i = 0; i < slowPopulationSize; i++){
-            slowPopulationMembers.add(new SlowPopulationMember(slowPopulationMemberDiameters));
+            populationMembers.add(new SlowPopulationMember(slowPopulationMemberDiameters));
 
         }
     }
 
     public void checkForNewEpoch(){
         boolean isNewEpoch = true;
-        for (PopulationMember populationMember : fastPopulationMembers) {
-            if (!populationMember.isDead()) isNewEpoch = false;
-        }
-        for (PopulationMember populationMember : slowPopulationMembers){
+        for (PopulationMember populationMember : populationMembers) {
             if (!populationMember.isDead()) isNewEpoch = false;
         }
         if (isNewEpoch) {
-            replicate(slowPopulationMembers);
-            replicate(fastPopulationMembers);
+            replicate(populationMembers);
         }
     }
 
@@ -37,7 +31,7 @@ public class Population {
         boolean found = false;
         int index = 0;
         while (!found){
-            index = (int)Random.randBetween(0, populationMembers.size()-1);
+            index = ThreadLocalRandom.current().nextInt(0, populationMembers.size());;
             if (Math.random() <= populationMembers.get(index).getFitness()){
                 found = true;
             }
@@ -58,41 +52,38 @@ public class Population {
 
         ArrayList<PopulationMember> newPopulation = new ArrayList<>();
 
-        if (populationMembers.get(0) instanceof SlowPopulationMember){
-            for (int i = 0; i < populationMembers.size(); i++){
-                PopulationMember parent1 = drawPopulationMember(populationMembers);
-                PopulationMember parent2 = drawPopulationMember(populationMembers);
-                newPopulation.add(new SlowPopulationMember(parent1, parent2));
+            for (int i = 0; i < populationMembers.size(); i++) {
+                if (populationMembers.get(i) instanceof SlowPopulationMember) {
+                    PopulationMember parent1 = drawPopulationMember(populationMembers);
+                    PopulationMember parent2 = drawPopulationMember(populationMembers);
+                    while (!(parent1 instanceof SlowPopulationMember))
+                        parent1 = drawPopulationMember(populationMembers);
+                    while (!(parent2 instanceof SlowPopulationMember))
+                        parent2 = drawPopulationMember(populationMembers);
+                    newPopulation.add(new SlowPopulationMember(parent1, parent2));
+                } else {
+                    PopulationMember parent1 = drawPopulationMember(populationMembers);
+                    PopulationMember parent2 = drawPopulationMember(populationMembers);
+                    while (!(parent1 instanceof FastPopulationMember))
+                        parent1 = drawPopulationMember(populationMembers);
+                    while (!(parent2 instanceof FastPopulationMember))
+                        parent2 = drawPopulationMember(populationMembers);
+                    newPopulation.add(new FastPopulationMember(parent1, parent2));
+                }
             }
-            slowPopulationMembers = newPopulation;
-        }
-        else {
-            for (int i = 0; i < populationMembers.size(); i++){
-                PopulationMember parent1 = drawPopulationMember(populationMembers);
-                PopulationMember parent2 = drawPopulationMember(populationMembers);
-                newPopulation.add(new FastPopulationMember(parent1, parent2));
-            }
-            fastPopulationMembers = newPopulation;
-        }
+            System.out.println("Nowa populacja:"+ newPopulation);
+            this.populationMembers = newPopulation;
     }
 
     public void movePopulation(){
-        for (PopulationMember populationMember : slowPopulationMembers) {
+        for (PopulationMember populationMember : populationMembers) {
                 if (!populationMember.isDead()){
                     populationMember.move();
                 }
         }
-        for (PopulationMember populationMember : fastPopulationMembers) {
-            if (!populationMember.isDead()){
-                populationMember.move();
-            }
-        }
     }
     public void drawPopulation(GraphicsContext gc){
-        for (PopulationMember populationMember : fastPopulationMembers) {
-            populationMember.draw(gc);
-        }
-        for (PopulationMember populationMember : slowPopulationMembers) {
+        for (PopulationMember populationMember : populationMembers) {
             populationMember.draw(gc);
         }
     }

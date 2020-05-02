@@ -1,7 +1,6 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.TimerTask;
@@ -18,7 +17,7 @@ public class DrawTask extends TimerTask {
 
     @Override
     public void run() {
-        gc.clearRect(0,0, 1000, 1000);
+        gc.clearRect(0,0, Main.canvasWidth, Main.canvasHeight);
         population.drawPopulation(gc);
         gc.fillOval(Main.canvasWidth-50, Main.canvasHeight-50, 50, 50);
         population.movePopulation();

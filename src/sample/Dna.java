@@ -1,6 +1,7 @@
 package sample;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Dna {
     static int lifeLength;
@@ -23,19 +24,30 @@ public class Dna {
      * @throws Exception An exception is thrown when parents have not equal lifeLength values.
      */
     public Dna(Dna parent1, Dna parent2){
-        if (parent1.getAcceleration().length == parent2.getAcceleration().length){
-            int length = parent1.getAcceleration().length;
-            acceleration = new Vector[length];
-            final int split = sample.Random.randBetween(length/4, 3*length/4);
-            for (int i = 0; i < length; i++){
-                if (i < split){
-                    acceleration[i] = parent1.getAcceleration()[i];
+        if (ThreadLocalRandom.current().nextDouble() <= fullMutationChance){
+            this.acceleration = new Vector[lifeLength];
+            this.forceMultiplier = forceMultiplier;
+            generateNewDna(this.forceMultiplier);
+        } else {
+            if (parent1.getAcceleration().length == parent2.getAcceleration().length){
+                int length = parent1.getAcceleration().length;
+                acceleration = new Vector[length];
+//                final int split = ThreadLocalRandom.current().nextInt(Math.round((float)length/4), Math.round((float)3*length/4));
+                final int split = Math.round(length/2f);
+                for (int i = 0; i < length; i++){
+                    if (ThreadLocalRandom.current().nextDouble() <= mutationChance){
+                        acceleration[i] = new Vector(ThreadLocalRandom.current().nextDouble()*2-1, ThreadLocalRandom.current().nextDouble()*2-1);
+                    } else {
+                        if (i < split){
+                            acceleration[i] = parent1.getAcceleration()[i];
+                        }
+                        else {
+                            acceleration[i] = parent2.getAcceleration()[i];
+                        }
+                    }
                 }
-                else {
-                    acceleration[i] = parent2.getAcceleration()[i];
-                }
-            }
 
+            }
         }
     }
 
@@ -50,9 +62,8 @@ public class Dna {
     }
 
     private void generateNewDna(double forceMultiplier){
-        Random random = new Random();
         for (int i = 0; i < lifeLength; i++){
-            acceleration[i] = new Vector(random.nextDouble()*2-1, random.nextDouble()*2-1);
+            acceleration[i] = new Vector(ThreadLocalRandom.current().nextDouble()*2-1, ThreadLocalRandom.current().nextDouble()*2-1);
             acceleration[i].multiply(this.forceMultiplier);
         }
     }

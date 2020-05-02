@@ -1,7 +1,6 @@
 package sample;
 
 
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 
@@ -26,13 +25,7 @@ public abstract class PopulationMember extends Movable implements Drawable{
 
     }
 
-    public double calcFitness(){
-        fitness = position.length(new Vector(Main.canvasWidth - 50, Main.canvasHeight - 50));
-        if (position.getX() > Main.canvasWidth + 50 || position.getX() > Main.canvasWidth -50 ||
-            position.getY() > Main.canvasHeight + 50 || position.getY() > Main.canvasHeight - 50) fitness -=40;
-        fitness = 1/ fitness;
-        return fitness;
-    }
+    public abstract double calcFitness();
 
     @Override
     void move() {
@@ -50,6 +43,9 @@ public abstract class PopulationMember extends Movable implements Drawable{
                     setDead(true);
             }
             else setDead(true);
+        }
+        else {
+            System.out.println(isDead());
         }
     }
 
