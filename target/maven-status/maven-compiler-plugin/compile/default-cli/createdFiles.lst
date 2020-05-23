@@ -1,0 +1,11 @@
+sample\PopulationMember.class
+sample\Dna.class
+sample\DrawTask.class
+sample\Vector.class
+sample\Obstacle.class
+sample\SlowPopulationMember.class
+sample\Drawable.class
+sample\Main.class
+sample\FastPopulationMember.class
+sample\Movable.class
+sample\Population.class
