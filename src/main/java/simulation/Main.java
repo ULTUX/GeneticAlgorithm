@@ -1,4 +1,4 @@
-package sample;
+package simulation;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -28,7 +28,7 @@ public class Main extends Application {
         draw(gc);
         Pane root = new Pane();
         root.getChildren().add(canvas);
-        primaryStage.setTitle("Drawing Test");
+        primaryStage.setTitle("Genetic Algorithm Simulation");
         primaryStage.setScene(new Scene(root, 960, 540));
         primaryStage.show();
     }
@@ -36,7 +36,7 @@ public class Main extends Application {
         Timer timer = new Timer();
         obstacles.add(new Obstacle(200, 250, 660, 270));
         Population population = new Population(fastPopulationSize, slowPopulationSize, new Vector(20, 20), new Vector(15, 15));
-        timer.schedule(new DrawTask(gc, population, obstacles), 100, 20);
+        timer.schedule(new DrawTask(gc, population, obstacles), 100, 40);
     }
 
     public static void main(String[] args) {

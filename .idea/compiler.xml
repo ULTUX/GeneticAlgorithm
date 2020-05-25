@@ -20,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="GeneticAlgorithm" target="14" />
+      <module name="GeneticAlgorithm" target="12" />
     </bytecodeTargetLevel>
   </component>
 </project>
