@@ -1,4 +1,4 @@
-package sample;
+package simulation;
 
 import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
