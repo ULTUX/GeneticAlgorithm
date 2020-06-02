@@ -19,12 +19,12 @@ public class DrawTask extends TimerTask {
     public void run() {
         gc.clearRect(0,0, Main.canvasWidth, Main.canvasHeight);
         population.drawPopulation(gc);
-        gc.fillOval(Main.canvasWidth-50, Main.canvasHeight-50, 50, 50);
-        population.movePopulation();
-        population.checkForNewEpoch();
         for (Obstacle obstacle : obstacles) {
             obstacle.draw(gc);
         }
+        gc.fillOval(Main.canvasWidth-50, Main.canvasHeight-50, 50, 50);
+        population.movePopulation();
+        population.checkForNewEpoch();
 
     }
 }
