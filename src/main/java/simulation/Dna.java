@@ -1,5 +1,6 @@
 package simulation;
 
+import java.util.Arrays;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Dna {
@@ -85,5 +86,12 @@ public class Dna {
         }
     }
 
-
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("");
+        for (int i = 0; i < acceleration.length; i++){
+            sb.append(acceleration[i].getX()+","+acceleration[i].getY());
+        }
+        return sb.toString();
+    }
 }

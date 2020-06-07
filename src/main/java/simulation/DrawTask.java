@@ -16,15 +16,22 @@ public class DrawTask extends AnimationTimer {
         this.obstacles = obstacles;
     }
     public void handle(long l) {
-        gc.clearRect(0,0, Main.canvasWidth, Main.canvasHeight);
-        population.drawPopulation(gc);
-        gc.strokeText("Epoch number: "+Population.epoch, Main.canvasWidth-100, 15);
-        for (Obstacle obstacle : obstacles) {
-            obstacle.draw(gc);
+        if (Main.simulationRunning){
+            gc.clearRect(0,0, Main.canvasWidth, Main.canvasHeight);
+            population.drawPopulation(gc);
+            gc.strokeText("Epoch number: "+Population.epoch, Main.canvasWidth-100, 15);
+            for (Obstacle obstacle : obstacles) {
+                obstacle.draw(gc);
+            }
+            gc.fillOval(Main.canvasWidth-50, Main.canvasHeight-50, 50, 50);
+            population.movePopulation();
+            population.checkForNewEpoch();
         }
-        gc.fillOval(Main.canvasWidth-50, Main.canvasHeight-50, 50, 50);
-        population.movePopulation();
-        population.checkForNewEpoch();
+        else {
+            gc.clearRect(0,0, Main.canvasWidth, Main.canvasHeight);
+            gc.strokeText("Simulation ended, you can close this window.", Main.canvasWidth/2-170, Main.canvasHeight/2);
+            stop();
+        }
 
     }
 }

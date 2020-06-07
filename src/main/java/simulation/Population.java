@@ -1,6 +1,10 @@
 package simulation;
 
 import javafx.scene.canvas.GraphicsContext;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -19,12 +23,50 @@ public class Population {
     }
 
     public void checkForNewEpoch(){
-        boolean isNewEpoch = true;
-        for (PopulationMember populationMember : populationMembers) {
-            if (!populationMember.isDead() && !populationMember.isNaturalDead()) isNewEpoch = false;
+        if (epoch < Main.targetEpochs){
+            boolean isNewEpoch = true;
+            for (PopulationMember populationMember : populationMembers) {
+                if (!populationMember.isDead() && !populationMember.isNaturalDead()) isNewEpoch = false;
+            }
+            if (isNewEpoch) {
+                replicate(populationMembers);
+            }
         }
-        if (isNewEpoch) {
-            replicate(populationMembers);
+        else {
+            Main.simulationRunning = false;
+            System.out.println("Simulation ended, collecting results.");
+            try {
+                final BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("./simulationResults.csv"));
+
+            populationMembers.forEach((populationMember -> {
+                if (populationMember instanceof SlowPopulationMember){
+                    try {
+                        bufferedWriter.write("slow");
+                        bufferedWriter.write(","+populationMember.getDna().toString());
+                        bufferedWriter.newLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if (populationMember instanceof FastPopulationMember){
+                    try {
+                        bufferedWriter.write("fast");
+                        bufferedWriter.write(","+populationMember.getDna().toString());
+                        bufferedWriter.newLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }));
+                try {
+                    bufferedWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
