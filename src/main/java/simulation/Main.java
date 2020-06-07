@@ -39,7 +39,8 @@ public class Main extends Application {
     private void draw(GraphicsContext gc){
         Timer timer = new Timer();
         Population population = new Population(fastPopulationSize, slowPopulationSize, new Vector(20, 20), new Vector(15, 15));
-        timer.schedule(new DrawTask(gc, population, obstacles), 10, 20);
+        DrawTask drawTask = new DrawTask(gc, population, obstacles);
+        drawTask.start();
     }
     private void start(Scene scene, GraphicsContext gc){
         AtomicBoolean isDrawingObstacle = new AtomicBoolean(false);
@@ -69,7 +70,23 @@ public class Main extends Application {
         });
     }
 
+    /*
+    Launch args;
+    0 - slow population size,
+    1 - fast population size,
+    2 - mutation chance
+    3 - full mutation chance,
+    4 - canvas width
+    5 - canvas height
+     */
     public static void main(String[] args) {
+        System.out.println(args.length);
+        if (args[0] != null) slowPopulationSize = Integer.parseInt(args[0]);
+        if (args[1] != null) fastPopulationSize = Integer.parseInt(args[1]);
+        if (args[2] != null) dnaMutationChance = Double.parseDouble(args[2]);
+        if (args[3] != null) dnaFullMutationChance = Double.parseDouble(args[3]);
+        if (args[4] != null) canvasWidth = Integer.parseInt(args[4]);
+        if (args[5] != null) canvasHeight = Integer.parseInt(args[5]);
         launch(args);
     }
 }

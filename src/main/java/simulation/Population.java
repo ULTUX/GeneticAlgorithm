@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Population {
+    static int epoch = 1 ;
     private ArrayList<PopulationMember> populationMembers = new ArrayList<>();
 
     public Population(int fastPopulationSize, int slowPopulationSize, Vector slowPopulationMemberDiameters, Vector fastPopulationMemberDiameters) {
@@ -20,7 +21,7 @@ public class Population {
     public void checkForNewEpoch(){
         boolean isNewEpoch = true;
         for (PopulationMember populationMember : populationMembers) {
-            if (!populationMember.isDead()) isNewEpoch = false;
+            if (!populationMember.isDead() && !populationMember.isNaturalDead()) isNewEpoch = false;
         }
         if (isNewEpoch) {
             replicate(populationMembers);
@@ -41,7 +42,7 @@ public class Population {
 
     private void replicate(ArrayList<PopulationMember> populationMembers){
         double sumFitness = 0;
-
+        epoch++;
         for (int i = 0; i < populationMembers.size(); i++){
             sumFitness += populationMembers.get(i).calcFitness();
         }
@@ -77,7 +78,7 @@ public class Population {
 
     public void movePopulation(){
         for (PopulationMember populationMember : populationMembers) {
-                if (!populationMember.isDead()){
+                if (!populationMember.isDead() && !populationMember.isNaturalDead()){
                     populationMember.move();
                 }
         }

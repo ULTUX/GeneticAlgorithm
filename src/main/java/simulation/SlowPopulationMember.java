@@ -12,13 +12,13 @@ public class SlowPopulationMember extends PopulationMember {
         setDna(new Dna(0.9));
     }
 
-    //Do poprawy
     @Override
     public double calcFitness() {
         double fitness = position.length(new Vector(Main.canvasWidth - 50, Main.canvasHeight - 50));
-        if (isDead()) fitness += 0.2*fitness;
+        fitness = Math.sqrt(fitness);
+        if (isDead()) fitness += 0.9*fitness;
         if ((position.getX() < Main.canvasWidth && position.getX() > Main.canvasWidth - 100) &&
-                (position.getY() < Main.canvasHeight && position.getY() > Main.canvasHeight - 100)) fitness -= 0.9*fitness;
+                (position.getY() < Main.canvasHeight && position.getY() > Main.canvasHeight - 100)) fitness -= 0.99*fitness;
         fitness = 1/ fitness;
         setFitness(fitness);
         return fitness;

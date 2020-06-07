@@ -1,11 +1,12 @@
 package simulation;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.TimerTask;
 
-public class DrawTask extends TimerTask {
+public class DrawTask extends AnimationTimer {
     private final GraphicsContext gc;
     private final Population population;
     private final ArrayList<Obstacle> obstacles;
@@ -14,11 +15,10 @@ public class DrawTask extends TimerTask {
         this.gc = gc;
         this.obstacles = obstacles;
     }
-
-    @Override
-    public void run() {
+    public void handle(long l) {
         gc.clearRect(0,0, Main.canvasWidth, Main.canvasHeight);
         population.drawPopulation(gc);
+        gc.strokeText("Epoch number: "+Population.epoch, Main.canvasWidth-100, 15);
         for (Obstacle obstacle : obstacles) {
             obstacle.draw(gc);
         }

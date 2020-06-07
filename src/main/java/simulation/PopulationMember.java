@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public abstract class PopulationMember extends Movable implements Drawable{
     private boolean dead = false;
+    private boolean naturalDead = false;
     private static ArrayList<Obstacle> obstacles;
     private int width, height;
     private static Vector initialVelocity;
@@ -25,11 +26,19 @@ public abstract class PopulationMember extends Movable implements Drawable{
 
     }
 
+    public boolean isNaturalDead() {
+        return naturalDead;
+    }
+
+    public void setNaturalDead(boolean naturalDead) {
+        this.naturalDead = naturalDead;
+    }
+
     public abstract double calcFitness();
 
     @Override
     void move() {
-        if (!isDead()){
+        if (!isDead() && !isNaturalDead()){
             Vector nextDna = dna.readNextDna();
             if (nextDna != null) {
                 double x = nextDna.getX();
@@ -42,10 +51,7 @@ public abstract class PopulationMember extends Movable implements Drawable{
                 if (position.getX() < 0 || position.getX() + width > Main.canvasWidth || position.getY() < 0 || position.getY() + height > Main.canvasHeight)
                     setDead(true);
             }
-            else setDead(true);
-        }
-        else {
-            System.out.println(isDead());
+            else setNaturalDead(true);
         }
     }
 

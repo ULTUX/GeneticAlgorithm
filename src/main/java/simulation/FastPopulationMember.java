@@ -21,13 +21,13 @@ public class FastPopulationMember extends PopulationMember {
             setDna(dna);
     }
 
-    //Do poprawy
     @Override
     public double calcFitness() {
         double fitness = position.length(new Vector(Main.canvasWidth - 50, Main.canvasHeight - 50));
-        if (isDead()) fitness += 0.9*fitness;
+        fitness = Math.sqrt(Math.sqrt(fitness));
+        if (isDead()) fitness += 0.5*fitness;
         if ((position.getX() < Main.canvasWidth && position.getX() > Main.canvasWidth - 100) &&
-                (position.getY() < Main.canvasHeight && position.getY() > Main.canvasHeight - 100)) fitness -= 0.9*fitness;
+                (position.getY() < Main.canvasHeight && position.getY() > Main.canvasHeight - 100)) fitness -= 0.8*fitness;
         fitness = 1/ fitness;
         setFitness(fitness);
         return fitness;
