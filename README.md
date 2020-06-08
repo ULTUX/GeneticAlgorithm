@@ -2,11 +2,15 @@
 
 Projekt Programowanie Obiektowe \
 Termin zajęć: Wtorek 9:15 
+## Informacje 
+- Kompilowane na JDK wersja: *12.0.1*
+- Użyte środowisko automatycznego budowania: *Maven*
+- Komenda kompilacji/uruchomienia: **mvn javafx:run**
 
 ## Opis symulacji
 Prosty program symulacyjny, przedstawiający uproszczony proces selekcji
-naturalnej z zastosowaniem prostego algorytmu genetycznego. Celem
-symulacji jest przeprowadzenie 2 róznie zachowujących się populacji przez
+naturalnej z zastosowaniem prostego algorytmu genetycznego.  
+Celem symulacji jest przeprowadzenie 2 róznie zachowujących się populacji przez
 przygotowaną wcześniej planszę na punkt końcowy. Na planszy umieszczone
 zostanie kilka przeszkód (osobnych obiektów klasy reprezentującej
 przeszkody), które mają zostać ominięte przez populacje. Każdy członek
