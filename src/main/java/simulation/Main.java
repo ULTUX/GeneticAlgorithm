@@ -1,6 +1,7 @@
 package simulation;
 
 import javafx.application.Application;
+import javafx.css.converter.DeriveColorConverter;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,8 +25,8 @@ public class Main extends Application {
         static Vector startCoordinates = new Vector(50, 50);
         static int canvasWidth = 960;
         static int canvasHeight = 540;
-        static int slowPopulationSize = 100;
-        static int fastPopulationSize = 200;
+        static int slowPopulationSize = 200;
+        static int fastPopulationSize = 300;
         static int targetEpochs = 20;
         static boolean simulationRunning = true;
 
@@ -35,14 +36,14 @@ public class Main extends Application {
         TextField textArea = new TextField();
         Label label = new Label();
         label.setText(
-                "Arguments (-1 for default):\n"+
-                "    1 - slow population size,\n" +
-                "    2 - fast population size,\n" +
-                "    3 - mutation chance,\n" +
-                "    4 - full mutation chance,\n" +
-                "    5 - canvas width,\n" +
-                "    6 - canvas height.\n" +
-                "    7 - target epochs");
+                "Arguments (-1 for default, leave all blank for all default):\n"+
+                "    1 - slow population size (200),\n" +
+                "    2 - fast population size (300),\n" +
+                "    3 - mutation chance (0.02),\n" +
+                "    4 - full mutation chance (0.01),\n" +
+                "    5 - canvas width (960),\n" +
+                "    6 - canvas height (540),\n" +
+                "    7 - target epochs (20).");
         Button btn = new Button();
         btn.setText("Run simulation");
         btn.setOnAction(event -> {
@@ -59,7 +60,7 @@ public class Main extends Application {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             Pane root = new Pane();
             root.getChildren().add(canvas);
-            primaryStage.setTitle("Drawing Test");
+            primaryStage.setTitle("Simulation");
             Scene scene = new Scene(root, 960, 540);
             primaryStage.setScene(scene);
             primaryStage.show();
@@ -86,14 +87,25 @@ public class Main extends Application {
         AtomicBoolean isDrawingObstacle = new AtomicBoolean(false);
         final Vector[] pos1 = {new Vector(-1, -1)};
         scene.setOnMouseClicked(e -> {
+            Vector mousePos = new Vector(e.getSceneX(), e.getSceneY());
             if (pos1[0].getX() == -1){
-                pos1[0] = new Vector(e.getSceneX(), e.getSceneY());
+                pos1[0] = new Vector(mousePos);
                 isDrawingObstacle.set(true);
             }
             else {
-                obstacles.add(new Obstacle((int)pos1[0].getX(), (int) pos1[0].getY(), (int) e.getSceneX(), (int) e.getSceneY()));
+                if (mousePos.getX() < pos1[0].getX()){
+                    double temp = pos1[0].getX();
+                    pos1[0].setX(mousePos.getX());
+                    mousePos.setX(temp);
+                }
+                if (mousePos.getY() < pos1[0].getY()){
+                    double temp = pos1[0].getY();
+                    pos1[0].setY(mousePos.getY());
+                    mousePos.setY(temp);
+                }
+                obstacles.add(new Obstacle((int)pos1[0].getX(), (int) pos1[0].getY(), (int) mousePos.getX(), (int) mousePos.getY()));
                 gc.setFill(Color.BLACK);
-                gc.fillRect((int)pos1[0].getX(), (int) pos1[0].getY(), (int) e.getSceneX() - pos1[0].getX(), (int) e.getSceneY() - pos1[0].getY());
+                gc.fillRect((int)pos1[0].getX(), (int) pos1[0].getY(), (int) mousePos.getX() - pos1[0].getX(), (int) mousePos.getY() - pos1[0].getY());
                 pos1[0] = new Vector(-1, -1);
                 isDrawingObstacle.set(false);
 
@@ -104,7 +116,7 @@ public class Main extends Application {
 
         scene.setOnKeyPressed((e)->{
             if (e.getCode().equals(KeyCode.ENTER)){
-                System.out.println("Proces rysowania przeszkód zakończony, uruchamianie symulacji.");
+                System.out.println("Obstacle drawing process finished, starting simulation...");
                 draw(gc);
             }
         });

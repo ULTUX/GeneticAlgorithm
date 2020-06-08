@@ -83,6 +83,7 @@ public class Population {
     }
 
     private void replicate(ArrayList<PopulationMember> populationMembers){
+        System.out.println("Generating new population...");
         double sumFitness = 0;
         epoch++;
         for (int i = 0; i < populationMembers.size(); i++){
@@ -114,7 +115,7 @@ public class Population {
                     newPopulation.add(new FastPopulationMember(parent1, parent2));
                 }
             }
-            System.out.println("Nowa populacja:"+ newPopulation);
+            System.out.println("New population generated.");
             this.populationMembers = newPopulation;
     }
 

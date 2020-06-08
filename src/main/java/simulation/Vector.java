@@ -25,6 +25,11 @@ public class Vector {
         this.y = y;
     }
 
+    public Vector(Vector vector) {
+        this.x = vector.getX();
+        this.y = vector.getY();
+    }
+
     public void setY(double y) {
         this.y = y;
     }
