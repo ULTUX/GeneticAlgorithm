@@ -32,7 +32,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage){
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Set parameters");
         TextField textArea = new TextField();
         Label label = new Label();
         label.setText(
@@ -72,7 +72,7 @@ public class Main extends Application {
         root.getChildren().add(textArea);
         root.getChildren().add(btn);
         root.getChildren().add(label);
-        textArea.setPromptText("Add paramaters here");
+        textArea.setPromptText("Add parameters here");
         primaryStage.setScene(new Scene(root, 300, 250));
         primaryStage.show();
 
