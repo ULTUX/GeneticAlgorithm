@@ -12,7 +12,7 @@ Termin zajęć: Wtorek 9:15
 
 ## Dokumentacja
 Kompletna dokumantacja kodu źródłowego znagit jduje się pod [**tym adresem**](http://ultux.github.io/GeneticAlgorithm/redirect.html).  
-Diagramy i reszta dokumentacji w postaci pliku PDF znajduje sie [**tutaj**](./diagrams.pdf).
+Diagramy i reszta dokumentacji w postaci pliku PDF znajduje sie [**tutaj**](http://ultux.github.io/GeneticAlgorithm/diagrams.pdf).
 
 
 ## Opis symulacji
