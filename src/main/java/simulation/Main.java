@@ -82,6 +82,7 @@ public class Main extends Application {
         DrawTask drawTask = new DrawTask(gc, population, obstacles);
         drawTask.start();
     }
+
     private void start(Scene scene, GraphicsContext gc){
         gc.strokeText("Click 2 points to draw rectangles, press enter to start simulation.", canvasWidth/2-80, canvasHeight-20);
         AtomicBoolean isDrawingObstacle = new AtomicBoolean(false);

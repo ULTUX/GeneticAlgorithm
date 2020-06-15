@@ -6,6 +6,9 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 import java.util.TimerTask;
 
+/**
+ * Specifies actions required for a simulation to be drawn and ran properly.
+ */
 public class DrawTask extends AnimationTimer {
     private final GraphicsContext gc;
     private final Population population;
@@ -15,6 +18,11 @@ public class DrawTask extends AnimationTimer {
         this.gc = gc;
         this.obstacles = obstacles;
     }
+
+    /**
+     * Function required by javafx.animation.AnimationTimer containing actions ran every frame.
+     * @param l The timestamp of the current frame given in nanoseconds.
+     */
     public void handle(long l) {
         if (Main.simulationRunning){
             gc.clearRect(0,0, Main.canvasWidth, Main.canvasHeight);

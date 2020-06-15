@@ -34,6 +34,12 @@ public abstract class PopulationMember extends Movable implements Drawable{
         this.naturalDead = naturalDead;
     }
 
+    /**
+     * Calculate fitness of this object.
+     * Fitness is a value telling how good is genetic information of this object.
+     * The bigger the value the higher the chance of this species genetic information to survive.
+     * @return Fitness of this object.
+     */
     public abstract double calcFitness();
 
     @Override

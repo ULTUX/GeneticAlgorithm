@@ -8,10 +8,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * Population of all species present in current epoch.
+ */
 public class Population {
     static int epoch = 1 ;
     private ArrayList<PopulationMember> populationMembers = new ArrayList<>();
 
+    /**
+     * Generate new population with given slow and fast population member size and their diameters.
+     * @param fastPopulationSize number of fast species.
+     * @param slowPopulationSize number of slow species.
+     * @param slowPopulationMemberDiameters diameters of slow species.
+     * @param fastPopulationMemberDiameters diameters of fast species.
+     */
     public Population(int fastPopulationSize, int slowPopulationSize, Vector slowPopulationMemberDiameters, Vector fastPopulationMemberDiameters) {
         for (int i = 0; i < fastPopulationSize; i++){
             populationMembers.add(new FastPopulationMember(fastPopulationMemberDiameters));
@@ -22,11 +32,17 @@ public class Population {
         }
     }
 
+    /**
+     * Check if a new epoch should be started, if yes, start one.
+     */
     public void checkForNewEpoch(){
         if (epoch < Main.targetEpochs){
             boolean isNewEpoch = true;
             for (PopulationMember populationMember : populationMembers) {
-                if (!populationMember.isDead() && !populationMember.isNaturalDead()) isNewEpoch = false;
+                if (!populationMember.isDead() && !populationMember.isNaturalDead()) {
+                    isNewEpoch = false;
+                    break;
+                }
             }
             if (isNewEpoch) {
                 replicate(populationMembers);
@@ -70,7 +86,11 @@ public class Population {
         }
     }
 
-    private PopulationMember drawPopulationMember(ArrayList<PopulationMember> populationMembers){
+    /**
+     * Draw all alive population members on the screen.
+     * @return
+     */
+    private PopulationMember drawPopulationMember(){
         boolean found = false;
         int index = 0;
         while (!found){
@@ -98,20 +118,20 @@ public class Population {
 
             for (int i = 0; i < populationMembers.size(); i++) {
                 if (populationMembers.get(i) instanceof SlowPopulationMember) {
-                    PopulationMember parent1 = drawPopulationMember(populationMembers);
-                    PopulationMember parent2 = drawPopulationMember(populationMembers);
+                    PopulationMember parent1 = drawPopulationMember();
+                    PopulationMember parent2 = drawPopulationMember();
                     while (!(parent1 instanceof SlowPopulationMember))
-                        parent1 = drawPopulationMember(populationMembers);
+                        parent1 = drawPopulationMember();
                     while (!(parent2 instanceof SlowPopulationMember))
-                        parent2 = drawPopulationMember(populationMembers);
+                        parent2 = drawPopulationMember();
                     newPopulation.add(new SlowPopulationMember(parent1, parent2));
                 } else {
-                    PopulationMember parent1 = drawPopulationMember(populationMembers);
-                    PopulationMember parent2 = drawPopulationMember(populationMembers);
+                    PopulationMember parent1 = drawPopulationMember();
+                    PopulationMember parent2 = drawPopulationMember();
                     while (!(parent1 instanceof FastPopulationMember))
-                        parent1 = drawPopulationMember(populationMembers);
+                        parent1 = drawPopulationMember();
                     while (!(parent2 instanceof FastPopulationMember))
-                        parent2 = drawPopulationMember(populationMembers);
+                        parent2 = drawPopulationMember();
                     newPopulation.add(new FastPopulationMember(parent1, parent2));
                 }
             }

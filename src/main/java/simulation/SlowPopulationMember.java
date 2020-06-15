@@ -3,15 +3,21 @@ package simulation;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Class describing behaviour of slow PopulationMember.
+ */
 public class SlowPopulationMember extends PopulationMember {
 
+    /**
+     * Creates new SlowPopulationMember object with given diameters.
+     * @param diameters Vector containing size in pixels of this species.
+     */
     public SlowPopulationMember(Vector diameters) {
         super();
         setWidth((int)diameters.getX());
         setHeight((int)diameters.getY());
         setDna(new Dna(0.9));
     }
-
     @Override
     public double calcFitness() {
         double fitness = position.length(new Vector(Main.canvasWidth - 50, Main.canvasHeight - 50));
@@ -24,6 +30,11 @@ public class SlowPopulationMember extends PopulationMember {
         return fitness;
     }
 
+    /**
+     * Create new object from crossover of 2 already existing objects.
+     * @param pm1 First object to be used in the crossover.
+     * @param pm2 Second object to be used in the crossover.
+     */
     public SlowPopulationMember(PopulationMember pm1, PopulationMember pm2){
         Dna dna = new Dna(pm1.getDna(), pm2.getDna());
         position.setVector(getStartCoordinates());

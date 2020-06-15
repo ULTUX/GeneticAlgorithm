@@ -4,14 +4,27 @@ package simulation;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * Class describing behaviour of fast PopulationMember.
+ */
 public class FastPopulationMember extends PopulationMember {
 
+    /**
+     * Creates new FastPopulationMember object with given diameters.
+     * @param diameters Vector containing size in pixels of this species.
+     */
     public FastPopulationMember(Vector diameters) {
         super();
         setWidth((int)diameters.getX());
         setHeight((int)diameters.getY());
         setDna(new Dna(1.2));
     }
+
+    /**
+     * Create new object from crossover of 2 already existing objects.
+     * @param pm1 First object to be used in the crossover.
+     * @param pm2 Second object to be used in the crossover.
+     */
     public FastPopulationMember(PopulationMember pm1, PopulationMember pm2){
             Dna dna = new Dna(pm1.getDna(), pm2.getDna());
             position.setVector(getStartCoordinates());
