@@ -11,7 +11,8 @@ Termin zajęć: Wtorek 9:15
 
 
 ## Dokumentacja
-Kompletna dokumantacja znajduje się pod [**tym adresem**](http://ultux.github.io/GeneticAlgorithm/redirect.html).
+Kompletna dokumantacja kodu źródłowego znajduje się pod [**tym adresem**](http://ultux.github.io/GeneticAlgorithm/redirect.html).  
+Diagramy i reszta dokumentacji w postaci pliku PDF znajduje sie [**tutaj**](./diagrams.pdf).
 
 
 ## Opis symulacji
