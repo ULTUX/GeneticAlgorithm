@@ -8,6 +8,8 @@ Termin zajęć: Wtorek 9:15
 - Kompilowane na JDK wersja: *12.0.1*
 - Użyte środowisko automatycznego budowania: *Maven*
 - Komenda kompilacji/uruchomienia: **mvn javafx:run**
+
+
 ## Dokumentacja
 Kompletna dokumantacja znajduje się pod [**tym adresem**](http://ultux.github.io/GeneticAlgorithm/redirect.html).
 
