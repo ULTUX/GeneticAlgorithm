@@ -27,4 +27,4 @@ udało się dojść w poprzedniej epoce. Dodatkowo możliwa na początku
 symulacji będzie zmiana liczności populacji początkowej, szansy na mutację,
 zmianę układu przeszkód oraz liczby epok do wykonania.
 ## Wizualizacja symulacji
-![Podgląd](https://github.com/ULTUX/GeneticAlgorithm/blob/master/wizualizacja.png)
+![Podgląd](https://raw.githubusercontent.com/ULTUX/GeneticAlgorithm/master/wizualizacja.png)
