@@ -102,6 +102,10 @@ public class Population {
         return populationMembers.get(index);
     }
 
+    /**
+     *
+     * @param populationMembers
+     */
     private void replicate(ArrayList<PopulationMember> populationMembers){
         System.out.println("Generating new population...");
         double sumFitness = 0;
