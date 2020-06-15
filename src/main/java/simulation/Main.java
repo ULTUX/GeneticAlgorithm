@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Handles the simulation process.
+ */
 public class Main extends Application {
         static double dnaMutationChance = 0.02;
         static double dnaFullMutationChance = 0.01;

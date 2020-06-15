@@ -102,7 +102,7 @@ public class Dna {
     }
 
     /**
-     * If random value (1,0) <= full mutation chance, perform full mutation of this object.
+     * If random value (1,0) is smaller that full mutation chance, perform full mutation of this object.
      */
     public void fullMutate(){
         if (Math.random() <= fullMutationChance){

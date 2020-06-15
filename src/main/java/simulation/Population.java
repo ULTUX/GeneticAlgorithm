@@ -45,7 +45,7 @@ public class Population {
                 }
             }
             if (isNewEpoch) {
-                replicate(populationMembers);
+                replicate();
             }
         }
         else {
@@ -103,10 +103,9 @@ public class Population {
     }
 
     /**
-     *
-     * @param populationMembers
+     * Begin replication process.
      */
-    private void replicate(ArrayList<PopulationMember> populationMembers){
+    private void replicate(){
         System.out.println("Generating new population...");
         double sumFitness = 0;
         epoch++;
@@ -143,6 +142,9 @@ public class Population {
             this.populationMembers = newPopulation;
     }
 
+    /**
+     * Move all alive members of the population.
+     */
     public void movePopulation(){
         for (PopulationMember populationMember : populationMembers) {
                 if (!populationMember.isDead() && !populationMember.isNaturalDead()){
@@ -150,6 +152,11 @@ public class Population {
                 }
         }
     }
+
+    /**
+     * Draw on the screen all alive members of the population.
+     * @param gc JavaFx object of class class used to issue draw calls to a Canvas using a buffer.
+     */
     public void drawPopulation(GraphicsContext gc){
         for (PopulationMember populationMember : populationMembers) {
             populationMember.draw(gc);
