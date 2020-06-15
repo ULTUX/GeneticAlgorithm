@@ -7,7 +7,7 @@ Termin zajęć: Wtorek 9:15
 - Użyte środowisko automatycznego budowania: *Maven*
 - Komenda kompilacji/uruchomienia: **mvn javafx:run**
 ## Dokumentacja
-Kompletna dokumantacja znajduje się pod [tym](http://ultux.github.io/GeneticAlgotirhm) adresem.
+Kompletna dokumantacja znajduje się pod [tym](http://ultux.github.io/GeneticAlgorithm) adresem.
 ## Opis symulacji
 Prosty program symulacyjny, przedstawiający uproszczony proces selekcji
 naturalnej z zastosowaniem prostego algorytmu genetycznego.  
