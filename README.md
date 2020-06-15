@@ -1,6 +1,6 @@
 # GeneticAlgorithm
 
-Projekt Programowanie Obiektowe \
+Projekt Programowanie Obiektowe  
 Termin zajęć: Wtorek 9:15 
 ## Informacje 
 - Kompilowane na JDK wersja: *12.0.1*
