@@ -2,12 +2,16 @@
 
 Projekt Programowanie Obiektowe  
 Termin zajęć: Wtorek 9:15 
+
+
 ## Informacje 
 - Kompilowane na JDK wersja: *12.0.1*
 - Użyte środowisko automatycznego budowania: *Maven*
 - Komenda kompilacji/uruchomienia: **mvn javafx:run**
 ## Dokumentacja
 Kompletna dokumantacja znajduje się pod [**tym adresem**](http://ultux.github.io/GeneticAlgorithm).
+
+
 ## Opis symulacji
 Prosty program symulacyjny, przedstawiający uproszczony proces selekcji
 naturalnej z zastosowaniem prostego algorytmu genetycznego.  
@@ -26,5 +30,7 @@ stworzenie nowych obiektów będących potomstwem tych, którym najdalej
 udało się dojść w poprzedniej epoce. Dodatkowo możliwa na początku
 symulacji będzie zmiana liczności populacji początkowej, szansy na mutację,
 zmianę układu przeszkód oraz liczby epok do wykonania.
+
+
 ## Wizualizacja symulacji
 ![Podgląd](https://raw.githubusercontent.com/ULTUX/GeneticAlgorithm/master/wizualizacja.png)
